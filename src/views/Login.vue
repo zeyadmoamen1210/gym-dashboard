@@ -101,6 +101,7 @@ export default {
             position:"top-center"
         });
         this.$router.push('/');
+        location.reload();
       }).catch((error) => {
         if(error.response.status === 401){
           this.$vs.notification({
