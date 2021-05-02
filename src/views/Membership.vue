@@ -289,6 +289,10 @@ export default {
 
     border-radius: 8px;
     margin-top: 2px;
+    padding:0;
+    .vs__dropdown-toggle{
+        border: none !important
+    }
     }
 }
 

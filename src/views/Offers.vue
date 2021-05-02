@@ -117,7 +117,15 @@
 
                 <div class="row">
                     <div class="col-md-4" v-for="offer in offers" :key="offer.id">
-                        <offerCard :offer="offer"/>
+                        <offerCard :offer="offer">
+                            <!-- <template slot="delete">
+                                <div style="    width: 46px;" >
+                                        <button style="padding: 10px;margin: 0;" class="btn " @click="deleteOffer(offer)">
+                                            <img style="width:100%" src="@/assets/trash.svg" alt="">
+                                        </button>
+                                </div>
+                            </template> -->
+                        </offerCard>
                     </div>
                 </div>
 
@@ -130,6 +138,34 @@
 
           </div>
       </div>
+
+
+       <vs-dialog color="danger" width="550px" not-center v-model="showDeleteConfirm">
+        <template #header>
+          <h4 class="not-margin">
+            Delete Offer 
+          </h4>
+        </template>
+
+
+        <div class="con-content">
+          <p>
+            Are You Sure You Want To Delete <span style="display:block;font-size: 16px;color: var(--danger);text-transform: capitalize;"> {{offer.title}} </span> This Offer
+          </p>
+        </div>
+
+        <template #footer>
+          <div class="con-footer" style="display:flex">
+            <vs-button color="danger" @click="removeOffer" transparent>
+              <img style="width: 20px;margin: 0 4px;" src="@/assets/trash.svg" alt=""> Ok
+            </vs-button>
+            <vs-button @click="showDeleteConfirm=false" dark transparent>
+              Cancel
+            </vs-button>
+          </div>
+        </template>
+      </vs-dialog>
+
   </div>
 </template>
 
@@ -148,7 +184,9 @@ export default {
             totalPages: 1,
             addOffer: {},
             photo:"",
-            url:""
+            url:"",
+            offer:{},
+            showDeleteConfirm: false,
         }
     },
     watch:{
@@ -157,6 +195,33 @@ export default {
         }
     },
     methods:{
+
+        deleteOffer(offer){
+            this.offer = {...offer}
+            this.showDeleteConfirm = true;
+        },
+        removeOffer(){
+            const loading = this.$vs.loading();
+            this.showDeleteConfirm = false;
+            axiosApi.post(`/delOffer`, {offerId: this.subscription.id}).then(() => {
+                this.$vs.notification({
+                    title:"Success !",
+                    text:`Offer Deleted Successfully`,
+                    color:"success",
+                    position:"top-center"
+                });
+
+                this.getOffers();
+            }).catch(() => {
+                this.$vs.notification({
+                    title:"Failed !",
+                    text:`There Are Something Wrong`,
+                    color:"danger",
+                    position:"top-center"
+                });
+            }).finally(() => loading.close());
+        },
+
         isAdmin(){
           return (JSON.parse(localStorage.getItem('OxfitGymUser')).role == 'admin')
         },
@@ -267,6 +332,10 @@ export default {
     padding:0;
     .vs__dropdown-toggle{
         border: none !important;
+    }
+    padding:0;
+    .vs__dropdown-toggle{
+        border: none !important
     }
     }
 .file-choose {

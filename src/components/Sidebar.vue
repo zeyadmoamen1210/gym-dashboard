@@ -11,6 +11,7 @@
           <!-- ...img logo -->
           <img src="@/assets/main-logo.png" alt="">
         </template>
+          <h6 style="    text-align: center;margin: auto;">FIT HOUSE GYM</h6>
         <vs-sidebar-item id="Collapse" @click.native="reduceSidebar">
           <template #icon>
             <!-- <i class='bx bx-home'></i> -->

@@ -152,6 +152,10 @@ export default {
     border-radius: 8px;
     margin-top: 2px;
     width:100%;
+    padding:0;
+    .vs__dropdown-toggle{
+        border: none !important
+    }
   }
   .vs-input{
       width: 100%;

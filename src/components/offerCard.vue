@@ -23,6 +23,8 @@
       </vs-avatar-group>
       </div>
 
+      <slot name="delete"></slot>
+
       <div>
           <vs-button @click="$router.push(`/add-membership?id=${offer.id}&type=offer&title=${offer.title}&duration=${offer.duration}&frees=${offer.frees > 0 ? offer.frees : 0}&price=${offer.price > 0 ? offer.price : 0}&sessions=${offer.sessions > 0 ? offer.sessions : 0 }`)">+</vs-button>
       </div>
