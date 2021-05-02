@@ -69,9 +69,12 @@
             </div>
 
             <NoData v-if="payments.length == 0" />
-            <div v-else class="row">
-              <div class="col-md-12" v-for="payment in payments" :key="payment.id">
-                <PaymentCard :payment="payment" />
+            <div v-else>
+              <h6 style="    padding: 6px;">Total Profit: <span style="color: #2c4484;"> {{paymentsTotalPrice}} </span></h6>
+              <div class="row">
+                <div class="col-md-12" v-for="payment in payments" :key="payment.id">
+                  <PaymentCard :payment="payment" />
+                </div>
               </div>
             </div>
 
@@ -105,11 +108,14 @@
             </div>
 
              <NoData v-if="expenses.length == 0" />
-             <div v-else class="row">
-              <div class="col-md-12" v-for="expense in expenses" :key="expense.id">
-                <ExpenseCard :expense="expense" />
-              </div>
-            </div>
+             <div v-else>
+             <h6 style="    padding: 6px;">Total Expenses: <span style="color: #2c4484;"> {{expensesTotalPrice}} </span></h6>
+               <div class="row">
+                  <div class="col-md-12" v-for="expense in expenses" :key="expense.id">
+                    <ExpenseCard :expense="expense" />
+                  </div>
+                </div>
+             </div>
 
             <div v-if="expensesTotalPages > 1" class="pagination-container" style="padding-bottom: 25px;">
                 <div class="center con-pagination">
@@ -174,6 +180,7 @@ export default {
         endTo: this.paymentsDates.endTo
       }).then(res => {
         this.payments = res.data.docs;
+        this.paymentsTotalPrice = res.data.totalPrice;
         this.paymentPage = res.data.page,
         this.paymentTotalPages = res.data.totalPages
       }).finally(() => loading.close());
@@ -190,6 +197,7 @@ export default {
         endTo: this.expensesDates.endTo
       }).then(res => {
         this.expenses = res.data.docs;
+        this.expensesTotalPrice = res.data.totalPrice;
         this.expensesPage = res.data.page,
         this.expensesTotalPages = res.data.totalPages
       }).finally(() => loading.close());
@@ -256,6 +264,8 @@ export default {
       paymentPage:1,
       paymentTotalPages:1,
       payments: [],
+      paymentsTotalPrice:"",
+      expensesTotalPrice:"",
       expensesPage:1,
       expensesTotalPages:1,
       expenses:[],
@@ -395,7 +405,7 @@ export default {
           },
       },
       tooltip: {
-          enabled: true,
+          enabled: false,
           formatter: undefined,
           offsetY: 0,
           style: {
@@ -591,7 +601,7 @@ export default {
           },
       },
       tooltip: {
-          enabled: true,
+          enabled: false,
           formatter: undefined,
           offsetY: 0,
           style: {
@@ -750,7 +760,7 @@ export default {
           },
       },
       tooltip: {
-          enabled: true,
+          enabled: false,
           formatter: undefined,
           offsetY: 0,
           style: {
