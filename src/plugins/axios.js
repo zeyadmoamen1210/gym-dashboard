@@ -4,7 +4,7 @@ import VueAxios from 'vue-axios'
 import router from "../router";
 
 const axiosApi = axios.create({
-    baseURL: `https://oxfitgym1.herokuapp.com/api/v1`,
+    baseURL: `https://back-oxfit.herokuapp.com/api/v1/`,
     headers: {
          Authorization: `Bearer ${localStorage.getItem('oxfitGymToken')}` 
     }
