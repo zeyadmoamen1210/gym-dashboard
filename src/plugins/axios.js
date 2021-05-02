@@ -28,7 +28,7 @@ axiosApi.interceptors.response.use((response) => {
       localStorage.removeItem("oxfitGymToken");
       localStorage.removeItem("OxfitGymUser");
       console.log("4000000001")
-      router.push(`/`)
+      router.push(`/login`)
     }
 
   
