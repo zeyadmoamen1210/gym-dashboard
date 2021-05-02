@@ -43,7 +43,7 @@
             <vs-input style="width:100%" v-model="addMemb.price" placeholder="Price" />
         </div>
         <div class="center content-inputs">
-            <label for=""> Sesstion: </label>
+            <label for=""> Sessions: </label>
             <vs-input style="width:100%" v-model="addMemb.sessions" placeholder="Number OF Sesstions" />        
         </div>
         <div class="center content-inputs">
