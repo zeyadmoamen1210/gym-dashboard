@@ -194,6 +194,12 @@
                 
               </b-card-text>
             </b-tab>
+            <b-tab title="Sales">
+              <div class="sheet" @click="$router.push(`/sales-sheets/sales`)">
+                <img src="@/assets/ballot.svg" style="width:20px" alt="">
+                <h6>Sales</h6>
+              </div>
+            </b-tab>
           </b-tabs>
         </div>
     </div>

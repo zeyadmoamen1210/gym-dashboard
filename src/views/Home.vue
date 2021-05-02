@@ -39,7 +39,7 @@
           ></apexchart>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-4" v-if="alerts.length > 0">
           <div class="alert-messages">
             <ul>
               <li v-for="alert in alerts" :key="alert.id">

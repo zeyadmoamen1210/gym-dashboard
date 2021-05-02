@@ -1,6 +1,14 @@
 
 const memberSheetsRoutes = [
     {
+        path: '/sales-sheets/sales',
+        name: 'SalesSheet',
+        // route level code-splitting
+        // this generates a separate chunk (about.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () => import('../views/SalesSheet/sales.vue')
+    },
+    {
         path: '/members-sheets/fitnessTest',
         name: 'FitnessTest',
         // route level code-splitting
