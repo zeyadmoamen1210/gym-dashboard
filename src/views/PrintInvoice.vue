@@ -4,11 +4,11 @@
         <div>
 
 
-      <button class="btn btn-primary" @click="printCertificate"> <i class="fas fa-medal"></i> Download The Invoice </button>
+      <button style="margin-bottom:15px;" class="btn btn-primary" @click="printCertificate"> <i class="fas fa-medal"></i> Download The Invoice </button>
 
       <div >
         <div class="img-container" id="tablecontainer">
-          <img src="@/assets/eisal-estlam.jpg" alt="" />
+          <img src="@/assets/eisal-estlam-nakdia.png" alt="" />
           <div class="id">
               <h6> {{invoice._id}} </h6>
           </div>
@@ -16,10 +16,10 @@
               <h6> {{invoice.user[0].username}} </h6>
           </div>
           <div class="indate-d">
-              <h6> {{new Date(invoice.dateObligation.date).getDate()}} </h6>
+              <h6> / {{new Date(invoice.dateObligation.date).getDate()}} </h6>
           </div>
           <div class="indate-m">
-              <h6> {{new Date(invoice.dateObligation.date).getMonth()}} </h6>
+              <h6> / {{new Date(invoice.dateObligation.date).getMonth()}} </h6>
           </div>
           <div class="indate-y">
               <h6> {{new Date(invoice.dateObligation.date).getFullYear()}} </h6>
@@ -145,29 +145,32 @@ export default {
         position: absolute;
     }
     .id{
-        top: 25%;
-        right: 14%;
+           top: 4%;
+    right: 32%;
+    h6{
+      font-size: 25px;
+    }
     }
     .user{
-        top: 48%;
-        right: 43%;
-        font-size: 21px;
+         top: 34%;
+    right: 45%;
+    font-size: 21px;
     }
     .indate-m{
-        top: 39%;
-        right: 23%;
+            top: 27%;
+    right: 41%;
     }
     .indate-y{
-        top: 39%;
-        right: 27%;
+            top: 27%;
+    right: 45%;
     }
     .indate-d{
-        top: 39%;
-        right: 18%;
+        top: 27%;
+    right: 37%;
     }
     .amount{
-        top: 39%;
-        left: 15%;
+            top: 19%;
+    left: 19%;
     }
   }
 }

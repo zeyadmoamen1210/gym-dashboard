@@ -16,7 +16,7 @@
 
       <div >
         <div class="img-container" >
-          <img id="tablecontainer" src="@/assets/eisal-estlam.jpg" alt="" />
+          <img id="tablecontainer" src="@/assets/eisal-estlam-nakdia.png" alt="" />
         </div>
       </div>
 
