@@ -191,11 +191,7 @@ const routes = [
     name: 'Trainees',
     component: () => import('../views/Trainees.vue')
   },
-  {
-    path: '/change-password',
-    name: 'changePassword',
-    component: () => import('../views/ChangePassword.vue')
-  },
+  
   {
     path: '/print-invoice/:id',
     name: 'printInvoice',

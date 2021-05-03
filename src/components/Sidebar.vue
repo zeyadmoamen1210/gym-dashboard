@@ -292,7 +292,7 @@
         
         <template #footer>
           <vs-row justify="space-between">
-            <vs-avatar @click="$router.push(`/change-password`)">
+            <vs-avatar>
               <img v-if="me && me.photo" :src="me.photo" alt="">
               <img v-else src="@/assets/personal.jpg" alt="">
             </vs-avatar>

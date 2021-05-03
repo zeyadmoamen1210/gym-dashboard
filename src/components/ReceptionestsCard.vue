@@ -39,7 +39,7 @@
 
           <div class="receptionests-footer">
               <div>
-                  <h6>Receptionest ID: {{receptionest.id}} </h6>
+                  <h6> ID: {{receptionest.id}} </h6>
               </div>
               <div>
                   <h6 v-if="receptionest.sesstion && receptionest.sessions.length"> {{ receptionest.sessions.length }} </h6>
