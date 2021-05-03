@@ -181,7 +181,7 @@ export default {
         removeTrainee(){
           const loading = this.$vs.loading;
             this.showDeleteDialog = false;
-          axiosApi.post(`/deleteTrainee`, {userId: this.currTrainee.user.id}).then(() => {
+          axiosApi.post(`/deleteMembership`, {userId: this.currTrainee.user.id}).then(() => {
             this.$vs.notification({
                     title:"Success !",
                     text:`Trainee Deleted Successfully`,
