@@ -273,13 +273,26 @@
 
 
 
+
+
+        <vs-sidebar-item id="change-password" to="/change-password">
+          <template #icon>
+            <!-- <i class='bx bx-chat' ></i> -->
+            <img class="icon-nav" src="@/assets/navbar-icons/dashboard.svg" alt="">
+
+          </template>
+          Update Password
+        </vs-sidebar-item>
+
+
+
        
 
 
         
         <template #footer>
           <vs-row justify="space-between">
-            <vs-avatar>
+            <vs-avatar @click="$router.push(`/change-password`)">
               <img v-if="me && me.photo" :src="me.photo" alt="">
               <img v-else src="@/assets/personal.jpg" alt="">
             </vs-avatar>

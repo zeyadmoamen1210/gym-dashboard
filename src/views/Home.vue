@@ -8,6 +8,8 @@
       <div class="row">
         <div class="col-md-6">
           <ClipboadMainStats :values="homeData" />
+                    <vs-button @click="forgetPasswordMethod">Change Password</vs-button>
+
           <apexchart
             type="bar"
             ref="obligationsAndPaid"
@@ -15,6 +17,7 @@
             :options="chartOptions"
             :series="series"
           ></apexchart>
+
         </div>
         <div class="col-md-6">
           <h6 style="padding: 0 21px;color: #2c4484;font-size: 19px;">🚀🚀 See Our Profits</h6>
@@ -48,6 +51,9 @@
             </ul>
           </div>
         </div>
+
+
+        
 
 
         <div class="col-md-6" style="border-right: 1px solid #2c448475;">
@@ -129,6 +135,42 @@
 
       </div>
     </div>
+
+
+
+
+
+
+    <vs-dialog class="forget-password" v-model="forgetPasswordPopup">
+        <template #header>
+          <h4 class="not-margin">
+            Change Password
+          </h4>
+        </template>
+
+
+        <div class="con-form">
+          <vs-input @keyup.enter.native="updatePass" style="width: 100%;" type="password" v-model="forgetPassword" placeholder="Password">
+            <template #icon>
+              <img style="width:20px" src="@/assets/edit-icons/id-card.svg" alt="">
+            </template>
+          </vs-input>
+          
+        </div>
+
+        <template #footer>
+          <div class="footer-dialog">
+            <vs-button block @click="updatePass">
+              Update Password
+            </vs-button>
+
+          </div>
+        </template>
+      </vs-dialog>
+
+
+
+
   </div>
 </template>
 
@@ -169,6 +211,23 @@ export default {
     }
   },
   methods: {
+    updatePass(){
+            this.forgetPasswordPopup = false;
+            const loading = this.$vs.loading();
+            let adminId = JSON.parse(localStorage.getItem("OxfitGymUser")).id
+            axiosApi.post(`/changePassword?id=${adminId}`, {password: this.forgetPassword}).then(() => {
+                this.$vs.notification({
+                    title:"Success !",
+                    text:`Password Updated Successfully For ${this.attendance.username}`,
+                    color:"success",
+                    position:"top-center"
+                });
+                this.forgetPassword = "";
+            }).finally(() => loading.close())
+        },
+        forgetPasswordMethod(){
+            this.forgetPasswordPopup = true;
+        },
     getPayments(defaultDate = true, page = 1){
       let loading = this.$vs.loading();
       if(defaultDate){
@@ -261,6 +320,9 @@ export default {
   },
   data() {
     return {
+      forgetPasswordPopup:false,
+      forgetPassword:"",
+
       paymentPage:1,
       paymentTotalPages:1,
       payments: [],

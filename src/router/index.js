@@ -192,6 +192,11 @@ const routes = [
     component: () => import('../views/Trainees.vue')
   },
   {
+    path: '/change-password',
+    name: 'changePassword',
+    component: () => import('../views/ChangePassword.vue')
+  },
+  {
     path: '/print-invoice/:id',
     name: 'printInvoice',
     component: () => import('../views/PrintInvoice.vue')
