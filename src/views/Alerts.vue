@@ -53,7 +53,8 @@
                       </li>
                   </ul>
               </div> -->
-              <div>
+              <NoData v-if="alerts.length == 0" />
+              <div v-else>
                 <div style="display:flex" v-for="alert in alerts" :key="alert.id">
                     <span :style="{'background': getRandomColor()}"></span>
             
@@ -67,7 +68,7 @@
           </div>
 
 
-          <div  class="pagination-container" style="padding-bottom: 25px;">
+          <div v-if="totalPages > 1" class="pagination-container" style="padding-bottom: 25px;">
                 <div class="center con-pagination">
                     <vs-pagination progress v-model="page" :length="totalPages" />
                 </div>
@@ -79,11 +80,13 @@
 
 <script>
 import StarHeader from '@/components/StarHeader';
+import NoData from '@/components/NoData';
 import axiosApi from '@/plugins/axios.js';
 
 export default {
     components:{
-        StarHeader
+        StarHeader,
+        NoData
     },
     data(){
         return {

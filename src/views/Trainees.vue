@@ -24,12 +24,21 @@
                 </div>
           </div>
 
-
-          <div class="receptionests-cards">
+            <NoData v-if="receptionsests.length == 0" />
+          <div class="receptionests-cards" v-else>
               <div class="row">
                   <div class="col-md-4" v-for="recep in receptionsests" :key="recep.id">
                       <ReceptionestsCard  :receptionest="recep" >
+                          <template slot="password-attendance">
+                               <div>
+                                    <vs-button @click="showConfirmAttendanceMethod(recep)" transparent active>Attendance</vs-button>
+                                </div>
+                                <div>
+                                    <vs-button @click="forgetPasswordMethod(recep)" success transparent active>password</vs-button>
+                                </div>
+                          </template>
                           <template slot="operations">
+                              
                                <div>
                                     <button v-if="isAdmin()" @click="pushToEdit(recep)">
                                         <img src="@/assets/pencil.svg"  alt="">
@@ -58,14 +67,14 @@
         <vs-dialog color="danger" width="550px" not-center v-model="showDeleteConfirm">
         <template #header>
           <h4 class="not-margin">
-            Delete Resciptionest 
+            Delete Trainee 
           </h4>
         </template>
 
 
         <div class="con-content">
           <p>
-            Are You Sure You Want To Delete <span style="display:block;font-size: 16px;color: var(--danger);text-transform: capitalize;"> {{recep.username}} </span> This Resciptionest
+            Are You Sure You Want To Delete <span style="display:block;font-size: 16px;color: var(--danger);text-transform: capitalize;"> {{recep.username}} </span> This Trainee
           </p>
         </div>
 
@@ -81,24 +90,99 @@
         </template>
       </vs-dialog>
 
+
+
+
+
+
+
+      <vs-dialog color="success" width="550px" not-center v-model="showConfirmAttendance">
+        <template #header>
+          <h4 class="not-margin">
+            Confirm Attendance For This Trinee
+          </h4>
+        </template>
+
+
+        <div class="con-content">
+          <p>
+            Are You Sure You Want To Confirm Attendance For <span style="display:block;font-size: 16px;color: var(--primary);text-transform: capitalize;"> {{attendance.username}} </span> This Trinee
+          </p>
+        </div>
+
+        <template #footer>
+          <div class="con-footer" style="display:flex">
+            <vs-button color="primary" @click="confirmAttend" transparent>
+               Attend Today
+            </vs-button>
+            <vs-button @click="showConfirmAttendance=false" dark transparent>
+              Cancel
+            </vs-button>
+          </div>
+        </template>
+      </vs-dialog>
+      
+
+
+
+
+
+
+
+
+
+      <vs-dialog class="forget-password" v-model="forgetPasswordPopup">
+        <template #header>
+          <h4 class="not-margin">
+            Change Password
+          </h4>
+        </template>
+
+
+        <div class="con-form">
+        <h6>Change Password For <span style="color: var(--primary);display:block;font-weight:200">{{attendance.username}}</span> </h6>
+          <vs-input @keyup.enter.native="updatePass" style="width: 100%;" type="password" v-model="forgetPassword" placeholder="Password">
+            <template #icon>
+              <img style="width:20px" src="@/assets/edit-icons/id-card.svg" alt="">
+            </template>
+          </vs-input>
+          
+        </div>
+
+        <template #footer>
+          <div class="footer-dialog">
+            <vs-button block @click="updatePass">
+              Update Password
+            </vs-button>
+
+          </div>
+        </template>
+      </vs-dialog>
+
   </div>
 </template>
 
 <script>
 import StarHeader from '@/components/StarHeader'
+import NoData from '@/components/NoData'
 import axiosApi from '@/plugins/axios.js'
 import ReceptionestsCard from '@/components/ReceptionestsCard'
 
 export default {
     components:{
         StarHeader,
-        ReceptionestsCard
+        ReceptionestsCard,
+        NoData
     },
     data(){
         return{
             search:"",
             active:1,
             page:1,
+            forgetPasswordPopup:false,
+            forgetPassword:"",
+            attendance:{},
+            showConfirmAttendance:false,
             receptionsests:[],
             totalPages:1,
             recep:{},
@@ -111,6 +195,39 @@ export default {
         }
     },
     methods:{
+        updatePass(){
+            this.forgetPasswordPopup = false;
+            const loading = this.$vs.loading();
+            axiosApi.post(`/changePassword?id=${this.attendance.id}`, {password: this.forgetPassword}).then(() => {
+                this.$vs.notification({
+                    title:"Success !",
+                    text:`Password Updated Successfully For ${this.attendance.username}`,
+                    color:"success",
+                    position:"top-center"
+                });
+                this.forgetPassword = "";
+            }).finally(() => loading.close())
+        },
+        forgetPasswordMethod(trinee){
+            this.forgetPasswordPopup = true;
+            this.attendance = {...trinee}
+        },
+        confirmAttend(){
+            this.showConfirmAttendance = false;
+            const loading = this.$vs.loading();
+            axiosApi.post(`/attendUserDay?id=${this.attendance.id}`).then(() => {
+                this.$vs.notification({
+                    title:"Success !",
+                    text:`${this.attendance.username} Attended Today`,
+                    color:"success",
+                    position:"top-center"
+                });
+            }).finally(() => loading.close())
+        },
+        showConfirmAttendanceMethod(trinee){
+            this.showConfirmAttendance = true;
+            this.attendance =  {...trinee};
+        },
         isAdmin(){
           return (JSON.parse(localStorage.getItem('OxfitGymUser')).role == 'admin')
         },

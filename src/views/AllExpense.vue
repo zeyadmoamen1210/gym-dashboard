@@ -40,7 +40,7 @@
         </div>
 
          <vs-button @click="addNewExpense()">
-                Add Offer
+                Add Expense
         </vs-button>
 
 
@@ -59,8 +59,8 @@
                   </vs-button>
               </div>
           </div>
-
-          <div class="row">
+            <NoData v-if="allExpenses.length == 0" />
+          <div class="row" v-else>
               
               <div style="margin-bottom:25px;" v-for="expense in allExpenses" :key="expense.id" class="col-md-6">
                   <div style="padding: 15px;background: #f7f7f7;border-left: 3px solid #2c4484;">
@@ -84,11 +84,13 @@
 
 <script>
 import StarHeader from '@/components/StarHeader';
+import NoData from '@/components/NoData';
 import axiosApi from '@/plugins/axios.js';
 
 export default {
     components:{
-        StarHeader
+        StarHeader,
+        NoData
     },
     data(){
         return{
@@ -121,6 +123,7 @@ export default {
                     color:"success",
                     position:"top-center"
                 });
+                this.addExpense = {};
                 this.getAllExpense();
             }).finally(() => loading.close());
         },

@@ -58,11 +58,17 @@
                 </div>
           </div>
 
-
-          <div class="trainers-cards">
+            <NoData v-if="trainers.length == 0"/>
+          <div class="trainers-cards" v-else>
               <div class="row">
                   <div class="col-md-4" v-for="trainer in trainers" :key="trainer.id">
                       <TrainerCard :trainer="trainer" >
+                          <template slot="password-attendance">
+                            
+                                <div>
+                                    <vs-button @click="forgetPasswordMethod(trainer)" success transparent active>password</vs-button>
+                                </div>
+                          </template>
                           <template slot="operations">
                                <div>
                                     <button v-if="isAdmin()" @click="pushTrainerToEdit(trainer)">
@@ -124,6 +130,40 @@
       </vs-dialog>
 
 
+
+
+
+
+
+      <vs-dialog class="forget-password" v-model="forgetPasswordPopup">
+        <template #header>
+          <h4 class="not-margin">
+            Change Password
+          </h4>
+        </template>
+
+
+        <div class="con-form">
+        <h6>Change Password For <span style="color: var(--primary);display:block;font-weight:200">{{attendance.username}}</span> </h6>
+          <vs-input @keyup.enter.native="updatePass" style="width: 100%;" type="password" v-model="forgetPassword" placeholder="Password">
+            <template #icon>
+              <img style="width:20px" src="@/assets/edit-icons/id-card.svg" alt="">
+            </template>
+          </vs-input>
+          
+        </div>
+
+        <template #footer>
+          <div class="footer-dialog">
+            <vs-button block @click="updatePass">
+              Update Password
+            </vs-button>
+
+          </div>
+        </template>
+      </vs-dialog>
+
+
   </div>
 </template>
 
@@ -131,10 +171,12 @@
 import StarHeader from '@/components/StarHeader'
 import TrainerCard from '@/components/TrainerCard'
 import axiosApi from '@/plugins/axios.js'
+import NoData from '@/components/NoData'
 
 export default {
     components:{
         StarHeader,
+        NoData,
         TrainerCard
     },
     watch:{
@@ -156,6 +198,23 @@ export default {
         this.getTrainers();
     },
     methods:{
+        updatePass(){
+            this.forgetPasswordPopup = false;
+            const loading = this.$vs.loading();
+            axiosApi.post(`/changePassword?id=${this.attendance.id}`, {password: this.forgetPassword}).then(() => {
+                this.$vs.notification({
+                    title:"Success !",
+                    text:`Password Updated Successfully For ${this.attendance.username}`,
+                    color:"success",
+                    position:"top-center"
+                });
+                this.forgetPassword = "";
+            }).finally(() => loading.close())
+        },
+        forgetPasswordMethod(trinee){
+            this.forgetPasswordPopup = true;
+            this.attendance = {...trinee}
+        },
        isAdmin(){
           return (JSON.parse(localStorage.getItem('OxfitGymUser')).role == 'admin')
         },
@@ -210,6 +269,9 @@ export default {
     },
     data(){
         return{
+            forgetPasswordPopup:false,
+            forgetPassword:"",
+            attendance:{},
             getAttendancePopup: false,
             search:"",
             active:1,

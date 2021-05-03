@@ -14,8 +14,8 @@
             </div> -->
         </div>
 
-
-        <div class="row">
+        <NoData v-if="currSesstions.length == 0"/>
+        <div class="row" v-else>
             <div class="col-md-4" v-for="session in currSesstions" :key="session._id">
                 <SessionCard :session="session" />
             </div>
@@ -29,11 +29,14 @@
 <script>
 import axiosApi from '@/plugins/axios.js'
 import StarHeader from '@/components/StarHeader'
+import NoData from '@/components/NoData'
 import SessionCard from '@/components/SessionCard'
+
 export default {
     components:{
         StarHeader,
-        SessionCard
+        SessionCard,
+        NoData
     },
     data(){
         return {

@@ -7,6 +7,9 @@
               </slot>
           </div>
 
+
+          
+
           <div class="personal-info">
                <div>
                     <vs-avatar v-if="receptionest.photo" size="70">
@@ -21,6 +24,15 @@
                    <span>Mobile: {{receptionest.phone}} </span>
                    <span>Email: {{receptionest.email}} </span>
                </div>
+          </div>
+
+
+
+          <div class="password-attendance">
+              
+            <slot name="password-attendance">
+
+            </slot>
           </div>
 
           
@@ -63,18 +75,24 @@ export default {
     .personal-info{
         padding: 19px;
         display: flex;
+        padding-bottom:0;
         h6{
             margin-bottom: 4px;
             padding-top: 10px;
+                white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
         }
         div{
             &:last-of-type{
-                padding:0 5px
+                    padding: 0 5px;
+    overflow: hidden;
             }
         }
         span{
                 font-size: 14px;
     color: #8e8b8b;
+    display: block;
         }
     }
 
@@ -119,6 +137,11 @@ export default {
                 }
             }
         }
+    }
+
+    .password-attendance{
+        display: flex;
+        justify-content: center;
     }
 }
 </style>

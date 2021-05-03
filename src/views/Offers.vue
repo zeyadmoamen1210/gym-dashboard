@@ -114,17 +114,17 @@
                     </div>
                 </div>
 
-
-                <div class="row">
+                <NoData v-if="offers.length == 0" />
+                <div class="row" v-else>
                     <div class="col-md-4" v-for="offer in offers" :key="offer.id">
                         <offerCard :offer="offer">
-                            <!-- <template slot="delete">
+                            <template slot="delete">
                                 <div style="    width: 46px;" >
                                         <button style="padding: 10px;margin: 0;" class="btn " @click="deleteOffer(offer)">
                                             <img style="width:100%" src="@/assets/trash.svg" alt="">
                                         </button>
                                 </div>
-                            </template> -->
+                            </template>
                         </offerCard>
                     </div>
                 </div>
@@ -171,11 +171,13 @@
 
 <script>
 import offerCard from '@/components/offerCard'
+import NoData from '@/components/NoData'
 import axiosApi from '@/plugins/axios.js'
 
 export default {
     components:{
-        offerCard
+        offerCard,
+        NoData
     },
     data(){
         return {
@@ -203,7 +205,7 @@ export default {
         removeOffer(){
             const loading = this.$vs.loading();
             this.showDeleteConfirm = false;
-            axiosApi.post(`/delOffer`, {offerId: this.subscription.id}).then(() => {
+            axiosApi.post(`/deleteOffer`, {offerId: this.offer.id}).then(() => {
                 this.$vs.notification({
                     title:"Success !",
                     text:`Offer Deleted Successfully`,

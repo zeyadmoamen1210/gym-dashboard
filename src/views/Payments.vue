@@ -52,6 +52,7 @@
           </vs-tr>
         </template>
         <template #tbody>
+        
           <vs-tr
             :key="i"
             v-for="(tr, i) in payments"
@@ -85,21 +86,21 @@
             </vs-td> -->
             
             <vs-td >
-                <vs-tooltip color="#ffc107" v-if="tr.dateObligation[tr.dateObligation.length-1].status == 'upcoming'">
+                <vs-tooltip color="#ffc107" v-if="tr.dateObligation && tr.dateObligation[tr.dateObligation.length-1] && tr.dateObligation[tr.dateObligation.length-1].status == 'upcoming'">
                     <template #tooltip>
                         <span style="font-weight:bold">Upcoming</span>
                     </template>
                     <div  style="    background: #ffc107;height: 8px;width: 8px;border-radius: 50%;display: inline-block;margin: 0 3px;"></div>
                     {{new Date(tr.dateObligation[tr.dateObligation.length-1].date).toLocaleDateString()}}
                 </vs-tooltip>
-                <vs-tooltip color="#25D366" v-else-if="tr.dateObligation[tr.dateObligation.length-1].status == 'upcoming'">
+                <vs-tooltip color="#25D366" v-else-if="tr.dateObligation && tr.dateObligation[tr.dateObligation.length-1] && tr.dateObligation[tr.dateObligation.length-1].status == 'upcoming'">
                     <template #tooltip>
                         <span style="font-weight:bold">Paid</span>
                     </template>
                     <div  style="    background: #25D366;height: 8px;width: 8px;border-radius: 50%;display: inline-block;margin: 0 3px;"></div>
                     {{new Date(tr.dateObligation[tr.dateObligation.length-1].date).toLocaleDateString()}}
                 </vs-tooltip>
-                <vs-tooltip color="danger" v-else-if="tr.dateObligation[tr.dateObligation.length-1].status == 'draft'">
+                <vs-tooltip color="danger" v-else-if="tr.dateObligation && tr.dateObligation[tr.dateObligation.length-1] && tr.dateObligation[tr.dateObligation.length-1].status == 'draft'">
                     <template #tooltip>
                         <span style="font-weight:bold">Draft</span>
                     </template>
@@ -221,8 +222,12 @@
 <script>
 
 import axiosApi from '@/plugins/axios.js';
+// import NoData from '@/components/NoData'
 
 export default {
+  // components:{
+  //   NoData
+  // },
       data:() => ({
        page:1,
        totalPages: 1,

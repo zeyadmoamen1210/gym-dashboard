@@ -9,8 +9,8 @@
                         </div>
                     </div>
             </div>
-
-            <div class="complaint-section">
+            <NoData v-if="allComplaints.length == 0" />
+            <div class="complaint-section" v-else>
             <div>
                         <div class="users">
                         <!-- <div class="form-group">
@@ -122,9 +122,11 @@
 
 <script>
 import axiosApi from '@/plugins/axios';
+import NoData from '@/components/NoData'
+
 export default {
     components:{
-        
+        NoData
     },
     created(){
         this.getAllComplaints();

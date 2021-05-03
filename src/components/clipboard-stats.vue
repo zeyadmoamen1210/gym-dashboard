@@ -1,13 +1,13 @@
 <template>
     <div class="numeric-stats">
       <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-6 col-sm-6">
             <div class="total-subscription">
             <div>
                 <div>
                     <img src="@/assets/navbar-icons/group.svg" alt="">
                 </div>
-                <div>
+                <div style="margin: auto">
                     <h6> {{values.users}} </h6>
                     <h6>All Users</h6>
                 </div>
@@ -15,14 +15,14 @@
             </div>
         </div>
 
-          <div class="col-md-4">
+          <div class="col-md-6 col-sm-6">
               <div class="total-subscription second">
                 <div>
                       <div>
-                            <img src="@/assets/navbar-icons/group.svg" alt="">
+                            <img src="@/assets/navbar-icons/whistle.svg" alt="">
 
                       </div>
-                        <div>
+                        <div style="margin: auto">
                             <h6> {{values.trainers}} </h6>
                             <h6>All Trainers</h6>
                         </div>
@@ -32,16 +32,34 @@
           </div>
 
 
-          <div class="col-md-4">
+          <div class="col-md-6 col-sm-6">
               <div class="total-subscription third">
                   <div>
                       <div>
                           <img src="@/assets/navbar-icons/group.svg" alt="">
                           
                       </div>
-                        <div>
+                        <div style="margin: auto">
                             <h6> {{values.reciptionest}} </h6>
                             <h6>Reciptionest</h6>
+                        </div>
+                  </div>
+                
+
+              </div>
+          </div>
+
+
+          <div class="col-md-6 col-sm-6">
+              <div class="total-subscription third">
+                  <div>
+                      <div>
+                          <img src="@/assets/navbar-icons/group.svg" alt="">
+                          
+                      </div>
+                        <div style="margin: auto">
+                            <h6> {{values.salles}} </h6>
+                            <h6>All Sales</h6>
                         </div>
                   </div>
                 
@@ -65,15 +83,16 @@ export default {
     padding: 14px;
 }
 .total-subscription{
-    padding: 20px;
+    padding: 21px 22px;
     background: linear-gradient(60deg, #936634, #E39C48);
     color: #FFF;
     text-align: center;
     font-weight: bold;
+    margin-bottom: 15px;
     font-size: 10px;
-    border-radius: 15px;
+    border-radius: 7px;
     h6{
-        font-size: 13px;
+        font-size: 16px;
         &:first-of-type{
             margin-bottom:0;
         }
@@ -86,7 +105,7 @@ export default {
             &:first-of-type{
                 flex:1;
                 img{
-                        width: 30px;
+                        width: 40px;
                 }
                 
             }

@@ -67,6 +67,9 @@ export default {
         font-size: 27px;
         font-weight: bold;
         text-align: center;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
 
